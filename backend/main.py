@@ -4,7 +4,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from model import Passenger, UpdatePassenger, GenderSurvivedPayload, UploadResponse
 
 from database import (
-    get_all_passengers,
     get_passenger_by_id,
     create_passenger,
     update_passenger,
@@ -24,7 +23,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "http://localhost:3000",
+    "http://localhost:3001",
 ]
 
 app.add_middleware(
