@@ -27,7 +27,7 @@ async def create_passenger(records):
         return 0
 
 # Get all passengers
-async def get_all_passengers():
+async def fetch_all_passengers():
     try:
         logger.info("Fetching all passengers")
         passengers = []

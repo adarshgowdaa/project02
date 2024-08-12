@@ -1,6 +1,7 @@
 import logging
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 from model import Passenger, UpdatePassenger, GenderSurvivedPayload, UploadResponse
 
 from database import (
@@ -8,6 +9,7 @@ from database import (
     create_passenger,
     update_passenger,
     get_survived_count,
+    fetch_all_passengers
 )
 import pandas as pd
 import io
@@ -23,7 +25,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:5173",
-    "http://localhost:3001",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -63,6 +65,19 @@ async def upload_excel(file: UploadFile = File(...)):
     except Exception as e:
         logger.error(f"Error during file upload: {str(e)}")
         raise HTTPException(status_code=500, detail="An error occurred while processing the file.")
+
+@app.get("/api/passengers/", response_model=List[Passenger])
+async def get_all_passengers():
+    try:
+        logger.info("Fetching all passengers")
+        passengers = await fetch_all_passengers()
+        logger.info(f"Fetched {len(passengers)} passengers")
+        return passengers
+    except Exception as e:
+        logger.error(f"Error fetching passengers: {str(e)}")
+        raise HTTPException(status_code=500, detail="An error occurred while fetching passengers.")
+
+
 
 @app.get("/api/passenger/{passenger_id}/", response_model=Passenger)
 async def get_passenger(passenger_id: int):

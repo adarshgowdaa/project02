@@ -1,14 +1,17 @@
 import React from 'react';
+import PassengersTable from '../components/PassengersTable';
 
-const PassengerDetailsPage = () => {
-
+function App() {
     return (
-        <div className="container">
-            <h1>Passenger Details</h1>
-            <p>Passenger details will be displayed here.</p>
-            
+        <div className="App">
+            <header className="App-header">
+                <h1>Titanic Passenger Management</h1>
+            </header>
+            <main>
+                <PassengersTable />
+            </main>
         </div>
     );
-};
+}
 
-export default PassengerDetailsPage;
+export default App;

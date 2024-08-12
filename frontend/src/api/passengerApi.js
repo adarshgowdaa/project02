@@ -1,5 +1,18 @@
 const BASE_URL = 'http://localhost:8000';
 
+export const fetchPassengers = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/passengers/`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching passengers:', error);
+        throw error;
+    }
+};
+
 export const fetchPassengerById = async (id) => {
     try {
         const response = await fetch(`${BASE_URL}/api/passenger/${id}/`);
